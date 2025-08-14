@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+*.pyc
 .venv/
 venv/
 env/
@@ -43,6 +44,7 @@ Thumbs.db
 .env
 .env.*.local
 .env.local
+.env.example
 .python-version
 
 # JetBrains (default: ignore all)
@@ -50,6 +52,51 @@ Thumbs.db
 
 # Cursor
 .cursor/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Node.js (for future frontend)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.yarn-integrity
+
+# Frontend build files
+frontend/dist/
+frontend/build/
+frontend/.next/
+frontend/.nuxt/
+frontend/.output/
+
+# Docker
+.dockerignore
+Dockerfile.dev
+docker-compose.override.yml
 
 # If selectively sharing, replace the single .idea/ with:
 # .idea/*
