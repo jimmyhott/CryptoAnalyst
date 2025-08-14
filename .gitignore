@@ -1,0 +1,71 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+ENV/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.nox/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+.hypothesis/
+.dmypy.json
+dmypy.json
+.pyre/
+.pytype/
+
+# Packaging/build
+build/
+dist/
+.eggs/
+*.egg-info/
+*.egg
+.wheels/
+pip-log.txt
+pip-delete-this-directory.txt
+MANIFEST
+
+# OS/editor
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Secrets/env
+.env
+.env.*.local
+.env.local
+.python-version
+
+# JetBrains (default: ignore all)
+.idea/
+
+# Cursor
+.cursor/
+
+# If selectively sharing, replace the single .idea/ with:
+# .idea/*
+# !.idea/inspectionProfiles/
+# !.idea/codeStyles/
+# !.idea/vcs.xml
+# !.idea/modules.xml
+# !.idea/*.iml
+# !.idea/misc.xml
+# .idea/workspace.xml
+# .idea/tasks.xml
+# .idea/dictionaries
+# .idea/shelf/
+# .idea/httpRequests/
+# .idea/dataSources/
+# .idea/dataSources.local.xml
+# .idea/usage.statistics.xml
+# .idea/gradle.xml
+# .idea/libraries/
