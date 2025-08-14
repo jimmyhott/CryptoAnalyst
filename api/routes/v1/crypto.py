@@ -41,6 +41,9 @@ async def get_crypto_details(
     }
 
 
+
+
+
 @router.get("/crypto/{symbol}/history")
 async def get_crypto_history(
     symbol: str,
