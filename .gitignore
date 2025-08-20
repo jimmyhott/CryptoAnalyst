@@ -47,6 +47,16 @@ Thumbs.db
 .env.example
 .python-version
 
+# Agentic secrets
+agentic/secrets/*.py
+agentic/secrets/*.json
+agentic/secrets/*.yaml
+agentic/secrets/*.yml
+agentic/secrets/*.key
+agentic/secrets/*.pem
+agentic/secrets/*.p12
+agentic/secrets/*.pfx
+
 # JetBrains (default: ignore all)
 .idea/
 

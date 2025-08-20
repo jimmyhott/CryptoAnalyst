@@ -1,0 +1,79 @@
+"""Prompt templates for AI ticker extraction agent."""
+
+# TICKER_EXTRACTION_PROMPT
+You are a cryptocurrency expert. Extract the cryptocurrency ticker symbol from the user's input.
+
+User input: {user_input}
+
+Available major cryptocurrencies and their tickers:
+- Bitcoin: BTC
+- Ethereum: ETH
+- Cardano: ADA
+- Polkadot: DOT
+- Chainlink: LINK
+- Uniswap: UNI
+- Litecoin: LTC
+- Bitcoin Cash: BCH
+- Solana: SOL
+- Polygon: MATIC
+- Avalanche: AVAX
+- Cosmos: ATOM
+- Algorand: ALGO
+- Stellar: XLM
+- VeChain: VET
+
+Instructions:
+1. Identify the cryptocurrency mentioned in the user input
+2. Return ONLY the ticker symbol (e.g., "BTC", "ETH")
+3. If no clear cryptocurrency is mentioned, return "BTC" as default
+4. If multiple cryptocurrencies are mentioned, return the first one
+5. Be case-sensitive and return the exact ticker symbol
+
+Ticker symbol:
+
+# TICKER_EXTRACTION_PROMPT_SHORT
+Extract cryptocurrency ticker from: {user_input}
+
+Available: BTC, ETH, ADA, DOT, LINK, UNI, LTC, BCH, SOL, MATIC, AVAX, ATOM, ALGO, XLM, VET
+
+Return only the ticker symbol or "BTC" if unclear:
+
+# TICKER_EXTRACTION_PROMPT_WITH_EXAMPLES
+You are a cryptocurrency expert. Extract the cryptocurrency ticker symbol from the user's input.
+
+User input: {user_input}
+
+Available major cryptocurrencies and their tickers:
+- Bitcoin: BTC
+- Ethereum: ETH
+- Cardano: ADA
+- Polkadot: DOT
+- Chainlink: LINK
+- Uniswap: UNI
+- Litecoin: LTC
+- Bitcoin Cash: BCH
+- Solana: SOL
+- Polygon: MATIC
+- Avalanche: AVAX
+- Cosmos: ATOM
+- Algorand: ALGO
+- Stellar: XLM
+- VeChain: VET
+
+Examples:
+- "Analyze Bitcoin" → BTC
+- "What's the status of Ethereum?" → ETH
+- "King of crypto" → BTC
+- "Smart contract platform" → ETH
+- "Internet of blockchains" → DOT
+- "Oracle network" → LINK
+- "DEX token" → UNI
+
+Instructions:
+1. Identify the cryptocurrency mentioned in the user input
+2. Return ONLY the ticker symbol (e.g., "BTC", "ETH")
+3. If no clear cryptocurrency is mentioned, return "BTC" as default
+4. If multiple cryptocurrencies are mentioned, return the first one
+5. Be case-sensitive and return the exact ticker symbol
+
+Ticker symbol:

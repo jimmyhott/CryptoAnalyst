@@ -1,0 +1,108 @@
+"""Asset extraction prompt templates for crypto analysis."""
+
+# ASSET_EXTRACTION_PROMPT
+You are a sophisticated cryptocurrency asset extraction agent. Your job is to parse user input and extract cryptocurrency assets with high precision, handling aliases, misspellings, sector requests, and ambiguity.
+
+User input: {user_input}
+
+Available assets and their properties:
+{asset_database}
+
+Sector mappings for broad requests:
+{sector_mappings}
+
+Instructions:
+1. Extract all mentioned cryptocurrency assets from the user input
+2. Handle aliases, nicknames, and common misspellings
+3. For sector requests (e.g., "AI coins"), return representative assets from that sector
+4. Assign confidence scores based on clarity and ambiguity
+5. Detect comparison mode when multiple assets are mentioned
+6. Extract timeframe hints and other metadata
+7. Handle ambiguous cases with appropriate confidence adjustments
+
+Output format (JSON only):
+{{
+    "extracted_assets": [
+        {{
+            "ticker": "BTC",
+            "name": "Bitcoin", 
+            "instrument": "BTC/USDT",
+            "confidence": 0.99
+        }}
+    ],
+    "mode": "asset_specific|sector|general",
+    "meta": {{
+        "timeframe_hint": "next week|4h|daily",
+        "comparison": true|false,
+        "sector": "AI|DeFi|Gaming",
+        "sample_size": 3,
+        "warning": "stablecoin_ta_low_value|collision_candidates"
+    }},
+    "parse_notes": "Brief explanation of parsing decisions",
+    "hitl_required": true|false,
+    "hitl_reason": "confidence_low|ambiguous_asset|sector_request|collision"
+}}
+
+Examples:
+- "BTC outlook next week" → single asset, high confidence
+- "eth vs bitcoin short-term" → comparison mode, two assets
+- "how are AI coins doing?" → sector mode, representative basket
+- "is etherium a buy?" → misspelling correction, medium confidence
+- "pepe looks hot" → ambiguous meme coin, low confidence, HITL needed
+
+Return only the JSON response:
+
+# ASSET_EXTRACTION_PROMPT_FAST
+Extract crypto assets from: {user_input}
+
+Available: {asset_list}
+
+Return JSON:
+{{
+    "extracted_assets": [{{"ticker": "BTC", "name": "Bitcoin", "confidence": 0.99}}],
+    "mode": "asset_specific",
+    "meta": {{}},
+    "parse_notes": "string",
+    "hitl_required": false
+}}
+
+# ASSET_EXTRACTION_PROMPT_DETAILED
+You are a cryptocurrency asset extraction expert. Parse user input to extract crypto assets with precision.
+
+User input: {user_input}
+
+Asset Database:
+{asset_database}
+
+Sector Mappings:
+{sector_mappings}
+
+Detailed Examples:
+1. "BTC outlook next week" → {{"ticker": "BTC", "confidence": 0.99}}, mode: "asset_specific"
+2. "eth vs bitcoin short-term" → comparison mode, two assets
+3. "how are AI coins doing?" → sector mode, representative AI basket
+4. "is etherium a buy?" → misspelling correction, medium confidence
+5. "pepe looks hot" → ambiguous meme coin, low confidence, HITL needed
+6. "Do quick TA for btc, sol, arb – 4h timeframe" → multi-asset, timeframe hint
+7. "Check BTC-USD and ETH-USD daily" → exchange-specific symbols
+8. "market looks shaky" → no assets, general mode
+9. "usdt outlook" → stablecoin warning
+10. "tell me about METIS" → potential collision, HITL needed
+
+Output JSON:
+{{
+    "extracted_assets": [{{"ticker": "BTC", "name": "Bitcoin", "instrument": "BTC/USDT", "confidence": 0.99}}],
+    "mode": "asset_specific|sector|general",
+    "meta": {{
+        "timeframe_hint": "string",
+        "comparison": boolean,
+        "sector": "string",
+        "sample_size": number,
+        "warning": "string"
+    }},
+    "parse_notes": "string",
+    "hitl_required": boolean,
+    "hitl_reason": "string"
+}}
+
+Return only JSON:
