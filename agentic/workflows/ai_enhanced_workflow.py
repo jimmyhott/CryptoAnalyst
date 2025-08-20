@@ -1,8 +1,8 @@
-"""AI-Enhanced Crypto Analysis Workflow using LangGraph and LangChain."""
+"""AI-Enhanced Crypto Analysis Workflow using LangGraph and LangChain with Azure OpenAI."""
 
 from typing import Dict, Any, List
 from langgraph.graph import StateGraph, END
-from langchain_openai import ChatOpenAI
+from langchain_openai import AzureChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 import json
@@ -16,17 +16,37 @@ from ..data.crypto_assets import get_available_tickers, is_valid_ticker
 class AIEnhancedCryptoWorkflow:
     """AI-enhanced workflow for cryptocurrency analysis."""
     
-    def __init__(self, openai_api_key: str = None):
-        """Initialize the AI-enhanced workflow."""
-        self.openai_api_key = openai_api_key or os.getenv("OPENAI_API_KEY")
-        if not self.openai_api_key:
-            raise ValueError("OpenAI API key is required. Set OPENAI_API_KEY environment variable.")
+    def __init__(self, azure_api_key: str = None, azure_endpoint: str = None, deployment_name: str = None):
+        """Initialize the AI-enhanced workflow with Azure OpenAI."""
+        # Try to get configuration from multiple sources
+        self.azure_api_key = azure_api_key or os.getenv("AZURE_OPENAI_API_KEY")
+        self.azure_endpoint = azure_endpoint or os.getenv("AZURE_OPENAI_ENDPOINT")
+        self.deployment_name = deployment_name or os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME")
         
-        # Initialize LLM
-        self.llm = ChatOpenAI(
-            model="gpt-3.5-turbo",
-            temperature=0.1,
-            api_key=self.openai_api_key
+        # Fallback to secret_config.py if environment variables are not set
+        if not all([self.azure_api_key, self.azure_endpoint, self.deployment_name]):
+            try:
+                from ..secrets.secret_config import (
+                    AZURE_OPENAI_API_KEY, 
+                    AZURE_OPENAI_ENDPOINT, 
+                    AZURE_OPENAI_DEPLOYMENT_NAME
+                )
+                self.azure_api_key = self.azure_api_key or AZURE_OPENAI_API_KEY
+                self.azure_endpoint = self.azure_endpoint or AZURE_OPENAI_ENDPOINT
+                self.deployment_name = self.deployment_name or AZURE_OPENAI_DEPLOYMENT_NAME
+            except ImportError:
+                pass
+        
+        if not self.azure_api_key or not self.azure_endpoint:
+            raise ValueError("Azure OpenAI API key and endpoint are required.")
+        
+        # Initialize Azure OpenAI LLM
+        self.llm = AzureChatOpenAI(
+            azure_deployment=self.deployment_name,
+            openai_api_version="2025-01-01-preview",
+            azure_endpoint=self.azure_endpoint,
+            api_key=self.azure_api_key,
+            temperature=0.1
         )
         
         # Build workflow
